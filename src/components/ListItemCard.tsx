@@ -11,7 +11,7 @@ function ListItemCard({ titles }: ListItemCardProps) {
                 <div className="content-area max-h-fit text-left p-2 flex flex-col gap-5">
                     {
                         titles.map((item, index) => (
-                            <ItemCard title="item"></ItemCard>
+                            <ItemCard title={item}></ItemCard>
                         ))
                     }
                 </div>

@@ -32,7 +32,7 @@ function ItemCard({ title }: item) {
             </button>
           </div>
         </div>
-        <h1 className="p-2 font-normal text-sky-800">{title}</h1>
+        <h1 className="p-2 font-normal text-sky-800 w-64 text-wrap">{title}</h1>
         {/* List Item Check List */}
         <div className="frame-tags flex hidden text-sky-800 items-center p-2 gap-2">
           <svg
