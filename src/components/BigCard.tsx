@@ -1,11 +1,12 @@
-import ItemCard from "./ItemCard";
+import ListItemCard from "./ListItemCard";
 
 function BigCard() {
   return (
     <>
-      <div className="h-screen flex flex-col text-left gap-5 bg-slate-300 rounded-xl p-5 min-w-80">
-        <div className="title-card flex gap-5 justify-between items-center align-middle">
-          <h1 className="mx-2 text-sky-800 font-bold">Beginning of Term</h1>
+      <div className="flex flex-col text-left max-h-full overflow-hidden bg-slate-300 rounded-xl p-5 min-w-80">
+        {/* Top Title */}
+        <div className="title-card flex gap-5 p-2 justify-between items-center align-middle">
+          <h1 className="mx-3 text-sky-800 font-bold">Beginning of Term</h1>
           <button className="p-2 bg-transparent rounded-xl hover:bg-slate-100">
             <svg
               className="fill-sky-800"
@@ -18,22 +19,19 @@ function BigCard() {
             </svg>
           </button>
         </div>
-        <div className=" text-left rounded  flex flex-col gap-5">
-          <ItemCard></ItemCard>
-          <ItemCard></ItemCard>
-          <ItemCard></ItemCard>
-          <ItemCard></ItemCard>
-          <ItemCard></ItemCard>
-          <ItemCard></ItemCard>
-        </div>
-        <div className="footer flex justify-between gap-5">
-          <button className="flex w-full gap-2 p-2 bg-transparent rounded-md hover:bg-slate-100">
-            <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+
+        {/* Content Table */}
+        <ListItemCard />
+
+        {/* Footer Table */}
+        <div className="footer flex justify-between p-2 gap-5">
+          <button className="flex w-full gap-2 p-2 bg-transparent rounded-md hover:bg-slate-100 text-sky-800">
+            <svg fill="currentColor" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
               <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z" />
             </svg>
-            Chia sẻ
+            Thêm mới
           </button>
-          <button className="bg-transparent rounded-md hover:bg-slate-100 min-w-8 flex justify-center items-center">
+          <button className="text-sky-800 bg-transparent rounded-md hover:bg-slate-100 min-w-10 flex justify-center items-center">
             <svg
               width="24"
               height="24"

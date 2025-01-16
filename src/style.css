@@ -1,0 +1,28 @@
+/* styles.css */
+/* Scrollbar */
+.scrollbar {
+	overflow-y: auto;
+	max-height: 24rem; /* Chiều cao tối đa */
+}
+.scrollbar-x {
+	overflow-x: auto;
+	white-space: nowrap;
+}
+.scrollbar::-webkit-scrollbar,
+.scrollbar-x::-webkit-scrollbar {
+	width: 8px;
+	height: 10px;
+}
+.scrollbar::-webkit-scrollbar-thumb,
+.scrollbar-x::-webkit-scrollbar-thumb {
+	background-color: #38bdf8; /* Màu thanh cuộn */
+	border-radius: 4px; /* Bo góc */
+}
+.scrollbar-x::-webkit-scrollbar-track {
+	border-radius: 4px;
+	background-color: #f8fafc;
+}
+.scrollbar::-webkit-scrollbar-track {
+	border-radius: 4px;
+	background-color: #e5e7eb; /* Màu track */
+}

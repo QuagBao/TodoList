@@ -1,8 +1,9 @@
 function ItemCard() {
   return (
     <>
-      <div className="bg-slate-50  rounded-lg p-2 group flex flex-col hover:outline-none hover:ring hover:ring-violet-300">
+      <div className="bg-slate-50 rounded-lg p-2 group flex flex-col hover:outline-none hover:ring hover:ring-violet-300">
         <div className="frame grid grid-cols-6">
+          {/* Tags Color */}
           <div className="frame-tags col-start-1 col-end-6 grid grid-cols-5 justify-around items-center p-2 gap-2">
             <div className="tag-item h-2 rounded bg-sky-400"></div>
             <div className="tag-item h-2 rounded bg-violet-400"></div>
@@ -14,6 +15,7 @@ function ItemCard() {
             <div className="tag-item h-2 rounded bg-yellow-400"></div>
             <div className="tag-item h-2 rounded bg-sky-900"></div>
           </div>
+          {/* Button Edit */}
           <div className="relative top-1">
             <button className="p-3 w-fit absolute right-0 hidden rounded-full bg-transparent hover:bg-sky-300 group-hover:block z-10">
               <svg
@@ -26,8 +28,8 @@ function ItemCard() {
             </button>
           </div>
         </div>
-        <h1 className="p-2 font-normal">Hello</h1>
-        <div className="frame-tags flex hidden items-center p-2 gap-2">
+        <h1 className="p-2 font-normal text-sky-800">Hello</h1>
+        <div className="frame-tags flex hidden text-sky-800 items-center p-2 gap-2">
           <svg
             className="fill-current"
             width={15}
@@ -36,7 +38,7 @@ function ItemCard() {
           >
             <path d="M64 80c-8.8 0-16 7.2-16 16l0 320c0 8.8 7.2 16 16 16l320 0c8.8 0 16-7.2 16-16l0-320c0-8.8-7.2-16-16-16L64 80zM0 96C0 60.7 28.7 32 64 32l320 0c35.3 0 64 28.7 64 64l0 320c0 35.3-28.7 64-64 64L64 480c-35.3 0-64-28.7-64-64L0 96zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" />
           </svg>
-          <div className="content">
+          <div className="content ">
             <h6>1/2</h6>
           </div>
         </div>
