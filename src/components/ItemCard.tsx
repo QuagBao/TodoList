@@ -1,4 +1,8 @@
-function ItemCard() {
+interface item {
+  title: string
+}
+
+function ItemCard({ title }: item) {
   return (
     <>
       <div className="bg-slate-50 rounded-lg p-2 group flex flex-col hover:outline-none hover:ring hover:ring-violet-300">
@@ -28,7 +32,8 @@ function ItemCard() {
             </button>
           </div>
         </div>
-        <h1 className="p-2 font-normal text-sky-800">Hello</h1>
+        <h1 className="p-2 font-normal text-sky-800">{title}</h1>
+        {/* List Item Check List */}
         <div className="frame-tags flex hidden text-sky-800 items-center p-2 gap-2">
           <svg
             className="fill-current"

@@ -2,7 +2,7 @@
 /* Scrollbar */
 .scrollbar {
 	overflow-y: auto;
-	max-height: 24rem; /* Chiều cao tối đa */
+	max-height: 33rem; /* Chiều cao tối đa */
 }
 .scrollbar-x {
 	overflow-x: auto;
