@@ -1,0 +1,78 @@
+import ItemCard from "./ItemCard";
+
+function BigCard() {
+  return (
+    <>
+      <div className="h-screen flex flex-col text-left gap-5 bg-slate-300 rounded-xl p-5 min-w-80">
+        <div className="title-card flex gap-5 justify-between items-center align-middle">
+          <h1 className="mx-2 text-sky-800 font-bold">Beginning of Term</h1>
+          <button className="p-2 bg-transparent rounded-xl hover:bg-slate-100">
+            <svg
+              className="fill-sky-800"
+              width={"30px"}
+              height={"30px"}
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 448 512"
+            >
+              <path d="M8 256a56 56 0 1 1 112 0A56 56 0 1 1 8 256zm160 0a56 56 0 1 1 112 0 56 56 0 1 1 -112 0zm216-56a56 56 0 1 1 0 112 56 56 0 1 1 0-112z" />
+            </svg>
+          </button>
+        </div>
+        <div className=" text-left rounded  flex flex-col gap-5">
+          <ItemCard></ItemCard>
+          <ItemCard></ItemCard>
+          <ItemCard></ItemCard>
+          <ItemCard></ItemCard>
+          <ItemCard></ItemCard>
+          <ItemCard></ItemCard>
+        </div>
+        <div className="footer flex justify-between gap-5">
+          <button className="flex w-full gap-2 p-2 bg-transparent rounded-md hover:bg-slate-100">
+            <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+              <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z" />
+            </svg>
+            Chia sẻ
+          </button>
+          <button className="bg-transparent rounded-md hover:bg-slate-100 min-w-8 flex justify-center items-center">
+            <svg
+              width="24"
+              height="24"
+              role="presentation"
+              focusable="false"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3 6V5C3 3.89543 3.89543 3 5 3H6C6.55228 3 7 3.44772 7 4C7 4.55228 6.55228 5 6 5H5V6C5 6.55228 4.55228 7 4 7C3.44772 7 3 6.55228 3 6Z"
+                fill="currentColor"
+              ></path>
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M6 8C6 6.89543 6.89543 6 8 6H19C20.1046 6 21 6.89543 21 8V18C21 19.1046 20.1046 20 19 20H8C6.89543 20 6 19.1046 6 18V8ZM8 8H19V14H8V8ZM18 18C17.4477 18 17 17.5523 17 17C17 16.4477 17.4477 16 18 16C18.5523 16 19 16.4477 19 17C19 17.5523 18.5523 18 18 18ZM8 17C8 17.5523 8.44772 18 9 18H12C12.5523 18 13 17.5523 13 17C13 16.4477 12.5523 16 12 16H9C8.44772 16 8 16.4477 8 17Z"
+                fill="currentColor"
+              ></path>
+              <path
+                d="M4 14C3.44772 14 3 14.4477 3 15V16C3 17.1046 3.89543 18 5 18V15C5 14.4477 4.55228 14 4 14Z"
+                fill="currentColor"
+              ></path>
+              <path
+                d="M3 9C3 8.44772 3.44772 8 4 8C4.55228 8 5 8.44772 5 9V12C5 12.5523 4.55228 13 4 13C3.44772 13 3 12.5523 3 12V9Z"
+                fill="currentColor"
+              ></path>
+              <path
+                d="M8 4C8 3.44772 8.44772 3 9 3H13C13.5523 3 14 3.44772 14 4C14 4.55228 13.5523 5 13 5H9C8.44772 5 8 4.55228 8 4Z"
+                fill="currentColor"
+              ></path>
+              <path
+                d="M16 3C15.4477 3 15 3.44772 15 4C15 4.55228 15.4477 5 16 5H19C19 3.89543 18.1046 3 17 3H16Z"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </>
+  );
+}
+export default BigCard;
