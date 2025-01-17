@@ -9,6 +9,7 @@ interface BigCardProps {
   onAddNewItem: (item: string, targetList: string) => void
   index: number;
   onMoveBoard: (sourceIndex: number, targetIndex: number) => void;
+  onRenameBoard: (newTitle: string, index: number) => void
 }
 
 function BigCard({
@@ -17,10 +18,13 @@ function BigCard({
   onDrop,
   onAddNewItem,
   index,
-  onMoveBoard
+  onMoveBoard,
+  onRenameBoard
 }: BigCardProps) {
 
   const [showInputForm, setShowInputForm] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [newTitle, setNewTitle] = useState(title);
 
   const [, dropRef] = useDrop({
     accept: 'CARD',
@@ -46,7 +50,7 @@ function BigCard({
       console.log("Drop Board: " + title)
       const didDrop = monitor.didDrop();
       if (!didDrop) {
-        console.log("Drag canceled for board" + title);
+        console.log("Drag canceled for board" + item);
       }
     }
   }))
@@ -55,21 +59,46 @@ function BigCard({
     onAddNewItem(item, title);
     setShowInputForm(false);
   }
+  const handleRename = () => {
+    if (newTitle.trim() !== "") {
+      onRenameBoard(newTitle, index);
+    }
+    setIsEditing(false);
+  }
+
 
   return (
     <>
       <div
         ref={(node) => dragBoard(dropBoard(node))}
-        className="flex flex-col text-left max-h-full overflow-hidden bg-slate-300 rounded-xl p-2 max-w-80">
+        className="flex flex-col text-left max-h-full overflow-hidden bg-slate-300 rounded-xl p-2 max-w-80"
+      >
         {/* Top Title */}
         <div className="title-card flex gap-5 p-2 justify-between items-center align-middle">
-          <h1 className="mx-3 text-sky-800 font-bold w-36 text-wrap">{title}</h1>
+          {isEditing ? (
+            <input
+              type="text"
+              value={newTitle}
+              onChange={(e) => setNewTitle(e.target.value)}
+              onBlur={handleRename}
+              onKeyDown={(e) => e.key === 'Enter' && handleRename()}
+              className="bg--slate-50 p-2 rounded font-bold text-sky-800 w-36 focus:outline-none"
+              autoFocus
+            />
+          ) : (
+            <h1
+              className="mx-3 text-sky-800 font-bold w-52 cursor-pointer truncate"
+              onClick={() => setIsEditing(true)}
+            >
+              {title}
+            </h1>
+          )}
           <button className="p-2 bg-transparent rounded-xl hover:bg-slate-100">
             <abbr title="Operation">
               <svg
                 className="fill-sky-800"
-                width={"30px"}
-                height={"30px"}
+                width={'30px'}
+                height={'30px'}
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 448 512"
               >
@@ -86,7 +115,8 @@ function BigCard({
             sourceList={title}
             showInputForm={showInputForm}
             onToggleInputForm={setShowInputForm}
-            onAddNewItem={addNewItem} />
+            onAddNewItem={addNewItem}
+          />
         </div>
 
         {/* Footer Table */}
@@ -94,8 +124,15 @@ function BigCard({
           {/* Button Add */}
           <button
             onClick={() => setShowInputForm(true)}
-            className="flex w-full gap-2 p-2 bg-transparent rounded-md hover:bg-slate-100 text-sky-800">
-            <svg fill="currentColor" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            className="flex w-full gap-2 p-2 bg-transparent rounded-md hover:bg-slate-100 text-sky-800"
+          >
+            <svg
+              fill="currentColor"
+              width="24"
+              height="24"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 448 512"
+            >
               <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z" />
             </svg>
             Add another card
@@ -103,7 +140,10 @@ function BigCard({
 
           {/* Open a new template */}
           <button className="text-sky-800 bg-transparent rounded-md hover:bg-slate-100 min-w-10 flex justify-center items-center">
-            <abbr className="text-sky-800" title="Add from sample template">
+            <abbr
+              className="text-sky-800"
+              title="Add from sample template"
+            >
               <svg
                 width="24"
                 height="24"
@@ -144,6 +184,6 @@ function BigCard({
         </div>
       </div>
     </>
-  );
+  )
 }
 export default BigCard;

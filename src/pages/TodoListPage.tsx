@@ -90,14 +90,21 @@ function TodoListPage() {
     setTodoList(updateTodoList);
     console.log("Board moved: " + sourceIndex + " to " + targetIndex);
   }
-
+  const handleRenameBoard = (newTitle: string, index: number) => {
+    const updateTodoList = [...todoList];
+    updateTodoList[index].title = newTitle;
+    setTodoList(updateTodoList);
+    console.log("Board renamed: " + newTitle);
+  }
 
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="overflow-y-auto w-fit flex gap-5 px-10 py-5 bg-slate-200 justify-center items-start">
         {
           todoList.map((board, index) => (
-            <BigCard key={index} index={index} title={board.title} items={board.items} onDrop={handleDragDrop}
+            <BigCard key={index} index={index}
+              title={board.title} items={board.items}
+              onDrop={handleDragDrop} onRenameBoard={handleRenameBoard}
               onAddNewItem={handleAddNewItem} onMoveBoard={handleChangeLocationBoard} />
           ))
         }
