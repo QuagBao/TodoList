@@ -1,13 +1,16 @@
 import { useDrop } from 'react-dnd';
+import { useState } from "react";
 import ListItemCard from "./ListItemCard";
+import InputForm from './InputForm';
 
 interface BigCardProps {
   title: string;
   items: string[];
   onDrop: (item: string, sourceList: string, targetList: string) => void //Function handle Drop
+  onAddNewItem: (item: string, targetList: string) => void
 }
 
-function BigCard({ title, items, onDrop }: BigCardProps) {
+function BigCard({ title, items, onDrop, onAddNewItem }: BigCardProps) {
   const [, dropRef] = useDrop({
     accept: 'CARD',
     drop: (dragItem: { title: string; sourceList: string }) => {
@@ -15,6 +18,12 @@ function BigCard({ title, items, onDrop }: BigCardProps) {
     }
   })
 
+  const addNewItem = (item: string) => {
+    onAddNewItem(item, title);
+    setShowInputForm(false);
+  }
+
+  const [showInputForm, setShowInputForm] = useState(false);
 
   return (
     <>
@@ -40,16 +49,27 @@ function BigCard({ title, items, onDrop }: BigCardProps) {
         </div>
 
         {/* Content Table */}
-        <ListItemCard titles={items} sourceList={title} />
+        <ListItemCard
+          titles={items}
+          sourceList={title}
+          showInputForm={showInputForm}
+          onToggleInputForm={setShowInputForm}
+          onAddNewItem={addNewItem} />
+
 
         {/* Footer Table */}
         <div className="footer flex justify-between p-2 gap-5">
-          <button className="flex w-full gap-2 p-2 bg-transparent rounded-md hover:bg-slate-100 text-sky-800">
+          {/* Button Add */}
+          <button
+            onClick={() => setShowInputForm(true)}
+            className="flex w-full gap-2 p-2 bg-transparent rounded-md hover:bg-slate-100 text-sky-800">
             <svg fill="currentColor" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
               <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z" />
             </svg>
             Add another card
           </button>
+
+          {/* Open a new template */}
           <button className="text-sky-800 bg-transparent rounded-md hover:bg-slate-100 min-w-10 flex justify-center items-center">
             <abbr className="text-sky-800" title="Add from sample template">
               <svg

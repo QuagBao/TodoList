@@ -44,7 +44,6 @@ function TodoListPage() {
       ]
     },
   ])
-
   // Function handle drag&drop
   const handleDragDrop = (item: string, sourceList: string, targetList: string) => {
     if (sourceList === targetList) {
@@ -67,16 +66,31 @@ function TodoListPage() {
       setTodoList(updateTodoList);
     }
   }
+  // Function handle add new item
+  const handleAddNewItem = (item: string, targetList: string) => {
+    const updateTodoList = todoList.map((board) => {
+      if (board.title === targetList) {
+        return {
+          ...board,
+          items: [...board.items, item]
+        };
+      }
+      return board;
+    });
+    setTodoList(updateTodoList);
+  }
 
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="overflow-y-auto w-fit flex gap-5 px-10 py-5 bg-slate-200 justify-center items-start">
         {
           todoList.map((board, index) => (
-            <BigCard key={index} title={board.title} items={board.items} onDrop={handleDragDrop} />
+            <BigCard key={index} title={board.title} items={board.items} onDrop={handleDragDrop}
+              onAddNewItem={handleAddNewItem} />
           ))
         }
       </div>
+
     </DndProvider>
   );
 }
