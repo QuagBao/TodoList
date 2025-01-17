@@ -1,15 +1,33 @@
 import { useDrag } from "react-dnd";
+import { useState } from "react";
+import { useEffect } from "react";
 interface itemProps {
   title: string,
+  indexBoard: number,
+  indexItem: number,
   sourceList: string
+  onRenameItem: (sourceIndex: number, newTitle: string, index: number) => void
 }
 
-function ItemCard({ title, sourceList }: itemProps) {
+function ItemCard({ title, indexBoard, sourceList, indexItem, onRenameItem }: itemProps) {
   const [, dragRef] = useDrag(() => ({
     type: 'CARD',
     item: { title, sourceList }
   }))
 
+  const [isEditing, setIsEditing] = useState(false);
+  const [newTitle, setNewTitle] = useState(title);
+
+  useEffect(() => {
+    setNewTitle(title);
+  }, [title])
+
+  const handleEdit = () => {
+    if (newTitle.trim() !== "") {
+      onRenameItem(indexBoard, newTitle, indexItem);
+    }
+    setIsEditing(false)
+  }
   return (
     <>
       <div
@@ -30,7 +48,9 @@ function ItemCard({ title, sourceList }: itemProps) {
           </div>
           {/* Button Edit */}
           <div className="relative top-1">
-            <button className="p-3 w-fit absolute right-0 hidden rounded-full bg-transparent hover:bg-sky-300 group-hover:block z-10">
+            <button
+              onClick={() => setIsEditing(true)}
+              className="p-3 w-fit absolute right-0 hidden rounded-full bg-transparent hover:bg-sky-300 group-hover:block z-10">
               <svg
                 width={15}
                 xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +61,21 @@ function ItemCard({ title, sourceList }: itemProps) {
             </button>
           </div>
         </div>
-        <h1 className="p-2 font-normal text-sky-800 w-64 text-wrap">{title}</h1>
+        {
+          isEditing ? (
+            <input
+              type="text"
+              value={newTitle}
+              onChange={(e) => setNewTitle(e.target.value)}
+              onBlur={handleEdit}
+              onKeyDown={(e) => e.key === 'Enter' && handleEdit()}
+              className="bg--slate-50 p-2 rounded text-sky-800 w-52 focus:outline-none"
+              autoFocus
+            />
+          ) : (
+            <h1 className="p-2 font-normal text-sky-800 w-64 text-wrap">{title}</h1>
+          )
+        }
         {/* List Item Check List */}
         <div className="frame-tags flex hidden text-sky-800 items-center p-2 gap-2">
           <svg

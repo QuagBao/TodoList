@@ -97,6 +97,17 @@ function TodoListPage() {
     console.log("Board renamed: " + newTitle);
   }
 
+  const handleRenameItem = (sourceIndex: number, newTitle: string, index: number) => {
+    const updateTodoList = [...todoList];
+    if (updateTodoList[sourceIndex] && updateTodoList[sourceIndex].items[index]) {
+      updateTodoList[sourceIndex].items[index] = newTitle;
+      setTodoList(updateTodoList);
+      console.log("Item renamed: " + newTitle);
+    } else {
+      console.log("Item not found");
+    }
+  }
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="overflow-y-auto w-fit flex gap-5 px-10 py-5 bg-slate-200 justify-center items-start">
@@ -104,6 +115,7 @@ function TodoListPage() {
           todoList.map((board, index) => (
             <BigCard key={index} index={index}
               title={board.title} items={board.items}
+              onRenameItem={handleRenameItem}
               onDrop={handleDragDrop} onRenameBoard={handleRenameBoard}
               onAddNewItem={handleAddNewItem} onMoveBoard={handleChangeLocationBoard} />
           ))

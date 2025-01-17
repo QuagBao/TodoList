@@ -10,6 +10,7 @@ interface BigCardProps {
   index: number;
   onMoveBoard: (sourceIndex: number, targetIndex: number) => void;
   onRenameBoard: (newTitle: string, index: number) => void
+  onRenameItem: (sourceIndex: number, newTitle: string, index: number) => void
 }
 
 function BigCard({
@@ -19,7 +20,8 @@ function BigCard({
   onAddNewItem,
   index,
   onMoveBoard,
-  onRenameBoard
+  onRenameBoard,
+  onRenameItem
 }: BigCardProps) {
 
   const [showInputForm, setShowInputForm] = useState(false);
@@ -69,8 +71,6 @@ function BigCard({
     }
     setIsEditing(false);
   }
-
-
   return (
     <>
       <div
@@ -116,10 +116,12 @@ function BigCard({
         <div ref={dropRef}>
           <ListItemCard
             titles={items}
+            sourceIndex={index}
             sourceList={title}
             showInputForm={showInputForm}
             onToggleInputForm={setShowInputForm}
             onAddNewItem={addNewItem}
+            onRenameItem={onRenameItem}
           />
         </div>
 
