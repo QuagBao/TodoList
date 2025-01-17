@@ -31,17 +31,24 @@ function BigCard({
 
   const [, dropBoard] = useDrop({
     accept: 'BOARD',
-    hover: (dragItem: { sourceIndex: number }) => {
+    drop: (dragItem: { sourceIndex: number }) => {
       if (dragItem.sourceIndex !== index) {
-        onMoveBoard(dragItem.sourceIndex, index); //Move Board
-        dragItem.sourceIndex = index; //Update sourceIndex
+        onMoveBoard(dragItem.sourceIndex, index); //Move Boards
+        console.log("Move Board: " + title)
       }
     }
   })
 
   const [, dragBoard] = useDrag(() => ({
     type: 'BOARD',
-    item: { sourceIndex: index }
+    item: { sourceIndex: index },
+    end: (item, monitor) => {
+      console.log("Drop Board: " + title)
+      const didDrop = monitor.didDrop();
+      if (!didDrop) {
+        console.log("Drag canceled for board" + title);
+      }
+    }
   }))
 
   const addNewItem = (item: string) => {
@@ -110,8 +117,8 @@ function BigCard({
                   fill="currentColor"
                 ></path>
                 <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
                   d="M6 8C6 6.89543 6.89543 6 8 6H19C20.1046 6 21 6.89543 21 8V18C21 19.1046 20.1046 20 19 20H8C6.89543 20 6 19.1046 6 18V8ZM8 8H19V14H8V8ZM18 18C17.4477 18 17 17.5523 17 17C17 16.4477 17.4477 16 18 16C18.5523 16 19 16.4477 19 17C19 17.5523 18.5523 18 18 18ZM8 17C8 17.5523 8.44772 18 9 18H12C12.5523 18 13 17.5523 13 17C13 16.4477 12.5523 16 12 16H9C8.44772 16 8 16.4477 8 17Z"
                   fill="currentColor"
                 ></path>

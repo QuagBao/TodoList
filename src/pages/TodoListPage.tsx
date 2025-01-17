@@ -82,9 +82,13 @@ function TodoListPage() {
   // Function handle change location of two board
   const handleChangeLocationBoard = (sourceIndex: number, targetIndex: number) => {
     const updateTodoList = [...todoList];
+    console.log("Source Index: " + sourceIndex);
+    console.log("Target Index: " + targetIndex);
     const [sourceBoard] = updateTodoList.splice(sourceIndex, 1);
+    console.log("Source Board: " + sourceBoard.title);
     updateTodoList.splice(targetIndex, 0, sourceBoard);
     setTodoList(updateTodoList);
+    console.log("Board moved: " + sourceIndex + " to " + targetIndex);
   }
 
 
@@ -93,7 +97,7 @@ function TodoListPage() {
       <div className="overflow-y-auto w-fit flex gap-5 px-10 py-5 bg-slate-200 justify-center items-start">
         {
           todoList.map((board, index) => (
-            <BigCard index={index} title={board.title} items={board.items} onDrop={handleDragDrop}
+            <BigCard key={index} index={index} title={board.title} items={board.items} onDrop={handleDragDrop}
               onAddNewItem={handleAddNewItem} onMoveBoard={handleChangeLocationBoard} />
           ))
         }
