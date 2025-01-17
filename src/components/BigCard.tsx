@@ -1,5 +1,5 @@
 import { useDrop, useDrag } from 'react-dnd';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ListItemCard from "./ListItemCard";
 
 interface BigCardProps {
@@ -25,6 +25,10 @@ function BigCard({
   const [showInputForm, setShowInputForm] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
+
+  useEffect(() => {
+    setNewTitle(title);
+  }, [title]);
 
   const [, dropRef] = useDrop({
     accept: 'CARD',
