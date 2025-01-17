@@ -1,14 +1,26 @@
+import { useDrop } from 'react-dnd';
 import ListItemCard from "./ListItemCard";
 
 interface BigCardProps {
   title: string;
-  items: string[]
+  items: string[];
+  onDrop: (item: string, sourceList: string, targetList: string) => void //Function handle Drop
 }
 
-function BigCard({ title, items }: BigCardProps) {
+function BigCard({ title, items, onDrop }: BigCardProps) {
+  const [, dropRef] = useDrop({
+    accept: 'CARD',
+    drop: (dragItem: { title: string; sourceList: string }) => {
+      onDrop(dragItem.title, dragItem.sourceList, title);
+    }
+  })
+
+
   return (
     <>
-      <div className="flex flex-col text-left max-h-full overflow-hidden bg-slate-300 rounded-xl p-2 max-w-80">
+      <div
+        ref={dropRef}
+        className="flex flex-col text-left max-h-full overflow-hidden bg-slate-300 rounded-xl p-2 max-w-80">
         {/* Top Title */}
         <div className="title-card flex gap-5 p-2 justify-between items-center align-middle">
           <h1 className="mx-3 text-sky-800 font-bold w-36 text-wrap">{title}</h1>
@@ -28,7 +40,7 @@ function BigCard({ title, items }: BigCardProps) {
         </div>
 
         {/* Content Table */}
-        <ListItemCard titles={items} />
+        <ListItemCard titles={items} sourceList={title} />
 
         {/* Footer Table */}
         <div className="footer flex justify-between p-2 gap-5">

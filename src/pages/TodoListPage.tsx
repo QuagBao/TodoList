@@ -1,6 +1,8 @@
-import BigCard from "../components/BigCard";
 import '../style.css';
 import { useState } from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import BigCard from "../components/BigCard";
 
 interface objectToDo {
   title: string;
@@ -43,14 +45,39 @@ function TodoListPage() {
     },
   ])
 
+  // Function handle drag&drop
+  const handleDragDrop = (item: string, sourceList: string, targetList: string) => {
+    if (sourceList === targetList) {
+      return;
+    }
+    // Create a copy of the todoList, get index of source and target
+    const updateTodoList = [...todoList];
+    const sourceIndex = updateTodoList.findIndex((board) => board.title === sourceList);
+    const targetIndex = updateTodoList.findIndex((board) => board.title === targetList);
+
+    if (sourceIndex >= 0 && targetIndex >= 0) {
+      // Remove from sourceList and Add to targetList
+      const sourceItems = updateTodoList[sourceIndex].items.filter((task) => task !== item);
+      const targetItems = [...updateTodoList[targetIndex].items, item];
+
+      // Update todoList
+      updateTodoList[sourceIndex].items = sourceItems;
+      updateTodoList[targetIndex].items = targetItems;
+
+      setTodoList(updateTodoList);
+    }
+  }
+
   return (
-    <div className="overflow-y-auto w-fit flex gap-5 px-10 py-5 bg-slate-200 justify-center items-start">
-      {
-        todoList.map((board, index) => (
-          <BigCard key={index} title={board.title} items={board.items} />
-        ))
-      }
-    </div>
+    <DndProvider backend={HTML5Backend}>
+      <div className="overflow-y-auto w-fit flex gap-5 px-10 py-5 bg-slate-200 justify-center items-start">
+        {
+          todoList.map((board, index) => (
+            <BigCard key={index} title={board.title} items={board.items} onDrop={handleDragDrop} />
+          ))
+        }
+      </div>
+    </DndProvider>
   );
 }
 

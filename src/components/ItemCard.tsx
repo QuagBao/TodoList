@@ -1,11 +1,20 @@
-interface item {
-  title: string
+import { useDrag } from "react-dnd";
+interface itemProps {
+  title: string,
+  sourceList: string
 }
 
-function ItemCard({ title }: item) {
+function ItemCard({ title, sourceList }: itemProps) {
+  const [, dragRef] = useDrag(() => ({
+    type: 'CARD',
+    item: { title, sourceList }
+  }))
+
   return (
     <>
-      <div className="bg-slate-50 rounded-lg p-2 group flex flex-col hover:outline-none hover:ring hover:ring-violet-300">
+      <div
+        ref={dragRef}
+        className="bg-slate-50 rounded-lg p-2 group flex flex-col hover:outline-none hover:ring hover:ring-violet-300">
         <div className="frame grid grid-cols-6">
           {/* Tags Color */}
           <div className="frame-tags col-start-1 col-end-6 grid grid-cols-5 justify-around items-center p-2 gap-2">
