@@ -1,6 +1,5 @@
 import InputForm from "./InputForm";
 import ItemCard from "./ItemCard";
-import { useState } from "react";
 
 interface ListItemCardProps {
     titles: string[],

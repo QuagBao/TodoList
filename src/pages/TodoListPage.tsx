@@ -79,14 +79,22 @@ function TodoListPage() {
     });
     setTodoList(updateTodoList);
   }
+  // Function handle change location of two board
+  const handleChangeLocationBoard = (sourceIndex: number, targetIndex: number) => {
+    const updateTodoList = [...todoList];
+    const [sourceBoard] = updateTodoList.splice(sourceIndex, 1);
+    updateTodoList.splice(targetIndex, 0, sourceBoard);
+    setTodoList(updateTodoList);
+  }
+
 
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="overflow-y-auto w-fit flex gap-5 px-10 py-5 bg-slate-200 justify-center items-start">
         {
           todoList.map((board, index) => (
-            <BigCard key={index} title={board.title} items={board.items} onDrop={handleDragDrop}
-              onAddNewItem={handleAddNewItem} />
+            <BigCard index={index} title={board.title} items={board.items} onDrop={handleDragDrop}
+              onAddNewItem={handleAddNewItem} onMoveBoard={handleChangeLocationBoard} />
           ))
         }
       </div>

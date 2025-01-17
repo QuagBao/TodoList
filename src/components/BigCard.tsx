@@ -1,16 +1,27 @@
-import { useDrop } from 'react-dnd';
+import { useDrop, useDrag } from 'react-dnd';
 import { useState } from "react";
 import ListItemCard from "./ListItemCard";
-import InputForm from './InputForm';
 
 interface BigCardProps {
   title: string;
   items: string[];
   onDrop: (item: string, sourceList: string, targetList: string) => void //Function handle Drop
   onAddNewItem: (item: string, targetList: string) => void
+  index: number;
+  onMoveBoard: (sourceIndex: number, targetIndex: number) => void;
 }
 
-function BigCard({ title, items, onDrop, onAddNewItem }: BigCardProps) {
+function BigCard({
+  title,
+  items,
+  onDrop,
+  onAddNewItem,
+  index,
+  onMoveBoard
+}: BigCardProps) {
+
+  const [showInputForm, setShowInputForm] = useState(false);
+
   const [, dropRef] = useDrop({
     accept: 'CARD',
     drop: (dragItem: { title: string; sourceList: string }) => {
@@ -18,17 +29,30 @@ function BigCard({ title, items, onDrop, onAddNewItem }: BigCardProps) {
     }
   })
 
+  const [, dropBoard] = useDrop({
+    accept: 'BOARD',
+    hover: (dragItem: { sourceIndex: number }) => {
+      if (dragItem.sourceIndex !== index) {
+        onMoveBoard(dragItem.sourceIndex, index); //Move Board
+        dragItem.sourceIndex = index; //Update sourceIndex
+      }
+    }
+  })
+
+  const [, dragBoard] = useDrag(() => ({
+    type: 'BOARD',
+    item: { sourceIndex: index }
+  }))
+
   const addNewItem = (item: string) => {
     onAddNewItem(item, title);
     setShowInputForm(false);
   }
 
-  const [showInputForm, setShowInputForm] = useState(false);
-
   return (
     <>
       <div
-        ref={dropRef}
+        ref={(node) => dragBoard(dropBoard(node))}
         className="flex flex-col text-left max-h-full overflow-hidden bg-slate-300 rounded-xl p-2 max-w-80">
         {/* Top Title */}
         <div className="title-card flex gap-5 p-2 justify-between items-center align-middle">
@@ -49,13 +73,14 @@ function BigCard({ title, items, onDrop, onAddNewItem }: BigCardProps) {
         </div>
 
         {/* Content Table */}
-        <ListItemCard
-          titles={items}
-          sourceList={title}
-          showInputForm={showInputForm}
-          onToggleInputForm={setShowInputForm}
-          onAddNewItem={addNewItem} />
-
+        <div ref={dropRef}>
+          <ListItemCard
+            titles={items}
+            sourceList={title}
+            showInputForm={showInputForm}
+            onToggleInputForm={setShowInputForm}
+            onAddNewItem={addNewItem} />
+        </div>
 
         {/* Footer Table */}
         <div className="footer flex justify-between p-2 gap-5">
