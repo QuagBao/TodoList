@@ -21,8 +21,8 @@ function ListItemCard({ titles, sourceIndex, sourceList, showInputForm, onToggle
             <div className="title-card overflow-y-auto smooth scrollbar scrollbar-thin scrollbar-thumb-sky-300 scrollbar-track-slate-50">
                 <div className="content-area max-h-fit text-left p-2 flex flex-col gap-5">
                     {
-                        titles.map((item, index) => (
-                            <ItemCard key={index} title={item} indexBoard={sourceIndex} sourceList={sourceList} indexItem={index} onRenameItem={onRenameItem}></ItemCard>
+                        titles.map((item) => (
+                            <ItemCard key={item} title={item} indexBoard={sourceIndex} indexItem={titles.indexOf(item)} sourceList={sourceList} onRenameItem={onRenameItem}></ItemCard>
                         ))
                     }
                     {/* Show Input Form */}

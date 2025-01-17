@@ -79,6 +79,17 @@ function TodoListPage() {
     });
     setTodoList(updateTodoList);
   }
+
+  const handleRenameItem = (sourceIndex: number, newTitle: string, index: number) => {
+    const updateTodoList = [...todoList];
+    if (updateTodoList[sourceIndex] && updateTodoList[sourceIndex].items[index]) {
+      updateTodoList[sourceIndex].items[index] = newTitle;
+      setTodoList(updateTodoList);
+      console.log("Item renamed: " + newTitle);
+    } else {
+      console.log("Item not found");
+    }
+  }
   // Function handle change location of two board
   const handleChangeLocationBoard = (sourceIndex: number, targetIndex: number) => {
     const updateTodoList = [...todoList];
@@ -95,17 +106,6 @@ function TodoListPage() {
     updateTodoList[index].title = newTitle;
     setTodoList(updateTodoList);
     console.log("Board renamed: " + newTitle);
-  }
-
-  const handleRenameItem = (sourceIndex: number, newTitle: string, index: number) => {
-    const updateTodoList = [...todoList];
-    if (updateTodoList[sourceIndex] && updateTodoList[sourceIndex].items[index]) {
-      updateTodoList[sourceIndex].items[index] = newTitle;
-      setTodoList(updateTodoList);
-      console.log("Item renamed: " + newTitle);
-    } else {
-      console.log("Item not found");
-    }
   }
 
   return (
