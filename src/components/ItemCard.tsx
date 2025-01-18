@@ -73,7 +73,7 @@ function ItemCard({ title, indexBoard, sourceList, indexItem, onRenameItem }: it
               autoFocus
             />
           ) : (
-            <h1 className="p-2 font-normal text-sky-800 w-64 text-wrap">{title}</h1>
+            <h1 className="p-2 font-normal text-sky-800 w-64 text-wrap">{indexItem + 1}. {title}</h1>
           )
         }
         {/* List Item Check List */}

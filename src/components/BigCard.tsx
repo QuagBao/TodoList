@@ -94,7 +94,7 @@ function BigCard({
               className="mx-3 text-sky-800 font-bold w-52 cursor-pointer truncate"
               onClick={() => setIsEditing(true)}
             >
-              {title}
+              {index + 1}. {title}
             </h1>
           )}
           <button className="p-2 bg-transparent rounded-xl hover:bg-slate-100">
