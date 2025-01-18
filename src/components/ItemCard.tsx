@@ -12,7 +12,7 @@ interface itemProps {
 function ItemCard({ title, indexBoard, sourceList, indexItem, onRenameItem }: itemProps) {
   const [, dragRef] = useDrag(() => ({
     type: 'CARD',
-    item: { title, sourceList }
+    item: { title, sourceList, indexItem }
   }))
 
   const [isEditing, setIsEditing] = useState(false);
@@ -32,7 +32,7 @@ function ItemCard({ title, indexBoard, sourceList, indexItem, onRenameItem }: it
     <>
       <div
         ref={dragRef}
-        className="bg-slate-50 rounded-lg p-2 group flex flex-col hover:outline-none hover:ring hover:ring-violet-300">
+        className="item-card bg-slate-50 rounded-lg p-2 group flex flex-col hover:outline-none hover:ring hover:ring-violet-300">
         <div className="frame grid grid-cols-6">
           {/* Tags Color */}
           <div className="frame-tags col-start-1 col-end-6 grid grid-cols-5 justify-around items-center p-2 gap-2">

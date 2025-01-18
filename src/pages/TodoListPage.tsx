@@ -45,27 +45,41 @@ function TodoListPage() {
     },
   ])
   // Function handle drag&drop
-  const handleDragDrop = (item: string, sourceList: string, targetList: string) => {
-    if (sourceList === targetList) {
-      return;
-    }
-    // Create a copy of the todoList, get index of source and target
+  const handleDragDrop = (item: string, sourceList: string, targetList: string, location: number) => {
+    // Tạo một bản sao của todoList
     const updateTodoList = [...todoList];
     const sourceIndex = updateTodoList.findIndex((board) => board.title === sourceList);
     const targetIndex = updateTodoList.findIndex((board) => board.title === targetList);
 
-    if (sourceIndex >= 0 && targetIndex >= 0) {
-      // Remove from sourceList and Add to targetList
-      const sourceItems = updateTodoList[sourceIndex].items.filter((task) => task !== item);
-      const targetItems = [...updateTodoList[targetIndex].items, item];
+    // Kéo thả trong cùng một bảng
+    if (sourceIndex === targetIndex) {
+      const items = [...updateTodoList[sourceIndex].items];
+      const currentIndex = items.indexOf(item);
+      if (currentIndex >= 0) {
+        // Di chuyển item đến vị trí mới (location)
+        items.splice(currentIndex, 1);
+        items.splice(location, 0, item);
+      }
+      updateTodoList[sourceIndex].items = items;
+    } else {
+      // Kéo thả giữa các bảng khác nhau
+      if (sourceIndex >= 0 && targetIndex >= 0) {
+        // Xóa item khỏi bảng nguồn
+        const sourceItems = updateTodoList[sourceIndex].items.filter((task) => task !== item);
 
-      // Update todoList
-      updateTodoList[sourceIndex].items = sourceItems;
-      updateTodoList[targetIndex].items = targetItems;
+        // Thêm item vào vị trí chỉ định trong bảng đích
+        const targetItems = [...updateTodoList[targetIndex].items];
+        targetItems.splice(location, 0, item); // Chèn vào vị trí `location`
 
-      setTodoList(updateTodoList);
+        // Cập nhật danh sách
+        updateTodoList[sourceIndex].items = sourceItems;
+        updateTodoList[targetIndex].items = targetItems;
+      }
     }
-  }
+
+    // Cập nhật todoList
+    setTodoList(updateTodoList);
+  };
   // Function handle add new item
   const handleAddNewItem = (item: string, targetList: string) => {
     const updateTodoList = todoList.map((board) => {

@@ -5,7 +5,7 @@ import ListItemCard from "./ListItemCard";
 interface BigCardProps {
   title: string;
   items: string[];
-  onDrop: (item: string, sourceList: string, targetList: string) => void //Function handle Drop
+  onDrop: (item: string, sourceList: string, targetList: string, location: number) => void //Function handle Drop
   onAddNewItem: (item: string, targetList: string) => void
   index: number;
   onMoveBoard: (sourceIndex: number, targetIndex: number) => void;
@@ -31,13 +31,6 @@ function BigCard({
   useEffect(() => {
     setNewTitle(title);
   }, [title]);
-
-  const [, dropRef] = useDrop({
-    accept: 'CARD',
-    drop: (dragItem: { title: string; sourceList: string }) => {
-      onDrop(dragItem.title, dragItem.sourceList, title);
-    }
-  })
 
   const [, dropBoard] = useDrop({
     accept: 'BOARD',
@@ -113,17 +106,16 @@ function BigCard({
         </div>
 
         {/* Content Table */}
-        <div ref={dropRef}>
-          <ListItemCard
-            titles={items}
-            sourceIndex={index}
-            sourceList={title}
-            showInputForm={showInputForm}
-            onToggleInputForm={setShowInputForm}
-            onAddNewItem={addNewItem}
-            onRenameItem={onRenameItem}
-          />
-        </div>
+        <ListItemCard
+          titles={items}
+          sourceIndex={index}
+          sourceList={title}
+          showInputForm={showInputForm}
+          onToggleInputForm={setShowInputForm}
+          onAddNewItem={addNewItem}
+          onDrop={onDrop}
+          onRenameItem={onRenameItem}
+        />
 
         {/* Footer Table */}
         <div className="footer flex justify-between p-2 gap-5">
